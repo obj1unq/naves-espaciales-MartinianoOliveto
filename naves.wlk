@@ -75,6 +75,13 @@ class NaveDeCombate inherits Nave{
 		modo.recibirAmenaza(self)
 	}
 }
+class NaveCargaResiduos inherits NaveDeCarga{
+	var property sellarseAlVacio = true //esto debe ser una flag o un estado, que implica? 
+
+	override method recibirAmenaza(){
+		velocidad = 0 
+	}
+}
 
 //ESTADOS 
 object reposo {
