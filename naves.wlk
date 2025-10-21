@@ -1,4 +1,79 @@
-class NaveDeCarga {
+class Nave{
+	var property velocidad 
+	var property alarma = false  
+
+	method recibirAmenaza(){
+		alarma = true 
+	}
+}
+//Se creo esta clase ya que, estos atributos y metodos van a usar en todas las otras clases de naves 
+//De esta clase van a heredar las siguientes 3; NaveDeCarga, NaveDePAsajeros, NaveDeCombate
+class NaveDeCarga inherits Nave{
+	var property carga 
+
+	method estaSobrecargada(){
+		return carga > 100 
+	} 
+	method estaExcedidaDeVelocidad(){
+		return velocidad > 100.000
+	}
+	override method recibirAmenaza(){
+		carga = 0 
+	}
+}
+class NaveDePasajeros inherits Nave{
+	var property cantDePasajeros 
+	const property tripulacion = 4 
+	const property penalizacionPorSeguridad = 200 
+
+	method cantTotalDePersonas(){
+		return cantDePasajeros + tripulacion 
+	} 
+	method velocidadMaximaLegal(){
+		if(cantDePasajeros <= 100){
+			return 300.000.div(cantDePasajeros)
+		}else{
+			return 300.000.div(cantDePasajeros) - penalizacionPorSeguridad
+		}
+	}
+	method estaEnPeligro(){
+		return self.excedeVelocidadMaximaLegal() || self.alarmaEstaEncendida()
+	}
+	method excedeVelocidadMaximaLegal(){
+		return velocidad > self.excedeVelocidadMaximaLegal()
+	}
+	method alarmaEstaEncendida(){
+		return alarma == true 
+	}
+	/*method penalizacionPorPasajeros(){
+		return (cantDePasajeros - 100) * 200 
+	}*/
+
+}
+class NaveDeCombate inherits Nave{
+	var property modo = reposo
+	const property mensajesEmitidos = []
+
+	method emitirMensaje(mensaje){
+		mensajesEmitidos.add(mensaje)
+	}
+	
+	method ultimoMensaje() = mensajesEmitidos.last()
+
+	method estaInvisible() = velocidad < 10000 and modo.invisible()
+
+	override method recibirAmenaza() {
+		modo.recibirAmenaza(self)
+	}
+}
+
+
+
+
+
+
+
+/*class NaveDeCarga {
 
 	var velocidad = 0
 	var property carga = 0
@@ -48,7 +123,7 @@ class NaveDeCombate {
 		modo.recibirAmenaza(self)
 	}
 
-}
+}*/
 
 object reposo {
 
