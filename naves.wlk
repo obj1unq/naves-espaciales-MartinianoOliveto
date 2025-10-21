@@ -1,9 +1,18 @@
 class Nave{
 	var property velocidad 
-	var property alarma = false  
+	var property alarma = alarmaApagada
+
+	const property velocidadDePropulsion = 200000
 
 	method recibirAmenaza(){
-		alarma = true 
+		alarma.cambiarEstado()
+	}
+	method propulsar(){
+		if(velocidad + velocidadDePropulsion > 300000){
+			velocidad = 300000
+		}else{
+			velocidad = velocidad + velocidadDePropulsion
+		}
 	}
 }
 //Se creo esta clase ya que, estos atributos y metodos van a usar en todas las otras clases de naves 
@@ -43,7 +52,7 @@ class NaveDePasajeros inherits Nave{
 		return velocidad > self.excedeVelocidadMaximaLegal()
 	}
 	method alarmaEstaEncendida(){
-		return alarma == true 
+		return alarma.alarmaEncendida()
 	}
 	/*method penalizacionPorPasajeros(){
 		return (cantDePasajeros - 100) * 200 
@@ -67,7 +76,36 @@ class NaveDeCombate inherits Nave{
 	}
 }
 
+//ESTADOS 
+object reposo {
 
+	method invisible() = false
+
+	method recibirAmenaza(nave) {
+		nave.emitirMensaje("¡RETIRADA!")
+	}
+
+}
+
+object ataque {
+
+	method invisible() = true
+
+	method recibirAmenaza(nave) {
+		nave.emitirMensaje("Enemigo encontrado")
+	}
+
+}
+object alarmaApagada{
+
+	method cambiarEstado(){
+		return alarmaEncendida
+	}
+
+}
+object alarmaEncendida{
+
+}
 
 
 
@@ -125,22 +163,3 @@ class NaveDeCombate {
 
 }*/
 
-object reposo {
-
-	method invisible() = false
-
-	method recibirAmenaza(nave) {
-		nave.emitirMensaje("¡RETIRADA!")
-	}
-
-}
-
-object ataque {
-
-	method invisible() = true
-
-	method recibirAmenaza(nave) {
-		nave.emitirMensaje("Enemigo encontrado")
-	}
-
-}
