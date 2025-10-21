@@ -3,16 +3,27 @@ class Nave{
 	var property alarma = alarmaApagada
 
 	const property velocidadDePropulsion = 200000
+	const property velocidadAlPrepararse = 15000 
 
 	method recibirAmenaza(){
 		alarma.cambiarEstado()
 	}
 	method propulsar(){
 		if(velocidad + velocidadDePropulsion > 300000){
-			velocidad = 300000
+			self.limitarVelocidad()
 		}else{
 			velocidad = velocidad + velocidadDePropulsion
 		}
+	}
+	method prepararParaViajar(){
+		if(velocidad + velocidadAlPrepararse > 300000){
+			self.limitarVelocidad()
+		}else{
+			velocidad = velocidad + velocidadAlPrepararse
+		}
+	}
+	method limitarVelocidad(){
+		velocidad = 300000
 	}
 }
 //Se creo esta clase ya que, estos atributos y metodos van a usar en todas las otras clases de naves 
@@ -74,12 +85,23 @@ class NaveDeCombate inherits Nave{
 	override method recibirAmenaza() {
 		modo.recibirAmenaza(self)
 	}
+	override method  prepararParaViajar(){
+		if(velocidad + velocidadAlPrepararse > 300000){
+			self.limitarVelocidad()
+		}else{
+			velocidad = velocidad + velocidadAlPrepararse
+		}
+		modo.prepararParaViajar()
+	}
 }
 class NaveCargaResiduos inherits NaveDeCarga{
-	var property sellarseAlVacio = true //esto debe ser una flag o un estado, que implica? 
+	var property sellarseAlVacio = false  //esto debe ser una flag o un estado, que implica? 
 
 	override method recibirAmenaza(){
 		velocidad = 0 
+	}
+	override method prepararParaViajar(){
+		sellarseAlVacio = true 
 	}
 }
 
@@ -92,6 +114,10 @@ object reposo {
 		nave.emitirMensaje("¡RETIRADA!")
 	}
 
+	method prepararParaViajar(nave){
+		nave.emitirMensaje(" Saliendo en mision ")
+	}
+
 }
 
 object ataque {
@@ -102,6 +128,9 @@ object ataque {
 		nave.emitirMensaje("Enemigo encontrado")
 	}
 
+	method prepararParaViajar(nave){
+		nave.emitirMensaje(" Volviendo a la base ")
+	}
 }
 object alarmaApagada{
 
