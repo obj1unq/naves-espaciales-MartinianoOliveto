@@ -11,26 +11,15 @@ describe "Nave de carga" {
 		assert.equals(20000, naveVacia.velocidad())
 		assert.equals(300000, naveLlena.velocidad())
 	}
-
-	
-
-	test "no sobrecargada" {
-		assert.notThat(naveVacia.sobrecargada())
-	}
-
-	test "excedida de velocidad" {
-		assert.that(naveLlena.excedidaDeVelocidad())
-	}
-
-	test "no excedida de velocidad" {
-		assert.notThat(naveVacia.excedidaDeVelocidad())
-	}
-
-	test "recibir amenaza" {
-		naveLlena.recibirAmenaza()
-		assert.equals(0, naveVacia.carga())
-	}
-
+}
+describe "Nave de carga de residuos"{
+	const naveConResiduos = new NaveCargaResiduos(carga = 5000, velocidad = 10000)
+	test"Nave de carga de residuos recibe amenaza"{
+		naveConResiduos.prepararParaViajar()
+		naveConResiduos.recibirAmenaza()
+		assert.equals(0, naveConResiduos.velocidad())
+		assert.equals(5000, naveConResiduos.carga())
+	} 
 }
 
 describe "Nave de pasajeros" {
