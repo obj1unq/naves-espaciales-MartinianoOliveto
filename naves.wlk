@@ -2,7 +2,7 @@ class Nave{
 	var property velocidad 
 	var property alarma = alarmaApagada
 
-	const property velocidadDePropulsion = 200000
+	const property velocidadDePropulsion = 20000
 	const property velocidadAlPrepararse = 15000 
 
 	method recibirAmenaza(){

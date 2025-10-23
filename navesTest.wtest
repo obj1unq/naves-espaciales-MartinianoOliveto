@@ -2,12 +2,17 @@ import naves.*
 
 describe "Nave de carga" {
 
-	const naveVacia = new NaveDeCarga()
+	const naveVacia = new NaveDeCarga(velocidad = 0, carga = 0)
 	const naveLlena = new NaveDeCarga(carga = 500000, velocidad = 290000)
 
-	test "sobrecargada" {
-		assert.that(naveLlena.sobrecargada())
+	test "propulsion"{
+		naveVacia.propulsar()
+		naveLlena.propulsar()
+		assert.equals(20000, naveVacia.velocidad())
+		assert.equals(300000, naveLlena.velocidad())
 	}
+
+	
 
 	test "no sobrecargada" {
 		assert.notThat(naveVacia.sobrecargada())
