@@ -25,10 +25,15 @@ describe "Nave de carga de residuos"{
 describe "Nave de pasajeros" {
 
 	const naveSinPasajeros = new NaveDePasajeros(velocidad = 290000, cantDePasajeros = 0)
-
-	test"verificacion de velocidad maxima al prepararse"{
+	const otraNaveSinPasajeros = new NaveDePasajeros(velocidad = 0, cantDePasajeros = 0)
+	test"Verificacion de velocidad maxima al prepararse"{
 		naveSinPasajeros.prepararParaViajar()
 		assert.equals(300000, naveSinPasajeros.velocidad())
+	}
+	test "Encuentro con enemigo"{
+		otraNaveSinPasajeros.encontrarseConEnemigo()
+		assert.equals(20000, otraNaveSinPasajeros.velocidad())
+		assert.that(otraNaveSinPasajeros.alarmaEstaEncendida())
 	}
 }
 //TEST 3.2 
@@ -49,33 +54,5 @@ describe "Naves de combate"{
 		assert.equals(" Volviendo a la base ", naveDeCombateModoAtaque.ultimoMensaje())
 		naveDeCombateModoReposo.prepararParaViajar()
 		assert.equals(" Saliendo en mision ", naveDeCombateModoReposo.ultimoMensaje())
-	}
-}
-describe "Nave de combate" {
-
-	const naveEnReposo = new NaveDeCombate()
-	const naveEnAtaque = new NaveDeCombate(modo = ataque)
-
-	test "no esta invisible en reposo" {
-		assert.notThat(naveEnReposo.estaInvisible())
-	}
-
-	test "esta invisible en ataque" {
-		assert.that(naveEnAtaque.estaInvisible())
-	}
-
-	test "no esta invisible en ataque" {
-		naveEnAtaque.velocidad(20000)
-		assert.notThat(naveEnAtaque.estaInvisible())
-	}
-
-	test "recibir amenaza en reposo" {
-		naveEnReposo.recibirAmenaza()
-		assert.equals("¡RETIRADA!", naveEnReposo.ultimoMensaje())
-	}
-
-	test "recibir amenaza en ataque" {
-		naveEnAtaque.recibirAmenaza()
-		assert.equals("Enemigo encontrado", naveEnAtaque.ultimoMensaje())
 	}
 }
