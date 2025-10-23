@@ -85,23 +85,20 @@ class NaveDeCombate inherits Nave{
 	override method recibirAmenaza() {
 		modo.recibirAmenaza(self)
 	}
-	override method  prepararParaViajar(){
-		if(velocidad + velocidadAlPrepararse > 300000){
-			self.limitarVelocidad()
-		}else{
-			velocidad = velocidad + velocidadAlPrepararse
-		}
-		modo.prepararParaViajar()
+	override method prepararParaViajar(){
+		super()
+		modo.prepararParaViajar(self)
 	}
 }
 class NaveCargaResiduos inherits NaveDeCarga{
-	var property sellarseAlVacio = false  //esto debe ser una flag o un estado, que implica? 
+	var property estaSelladaAlVacio = false  //esto debe ser una flag o un estado, que implica? 
 
 	override method recibirAmenaza(){
 		velocidad = 0 
 	}
 	override method prepararParaViajar(){
-		sellarseAlVacio = true 
+		super()
+		estaSelladaAlVacio = true 
 	}
 }
 

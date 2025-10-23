@@ -31,7 +31,26 @@ describe "Nave de pasajeros" {
 		assert.equals(300000, naveSinPasajeros.velocidad())
 	}
 }
-
+//TEST 3.2 
+describe "Nave de residuos radiactivos"{
+	const naveResiduosSinSellar = new NaveCargaResiduos(velocidad = 0, carga = 0)
+	test"Verificacion de sellado y velocidad al prepararse"{
+		naveResiduosSinSellar.prepararParaViajar()
+		assert.that(naveResiduosSinSellar.estaSelladaAlVacio())
+		assert.equals(15000, naveResiduosSinSellar.velocidad())
+	}
+}
+//TEST 3.3 y 3.4 
+describe "Naves de combate"{
+	const naveDeCombateModoAtaque = new NaveDeCombate(velocidad = 0, modo = ataque)
+	const naveDeCombateModoReposo = new NaveDeCombate(velocidad = 0)
+	test"Mensajes naves de combate"{
+		naveDeCombateModoAtaque.prepararParaViajar()
+		assert.equals(" Volviendo a la base ", naveDeCombateModoAtaque.ultimoMensaje())
+		naveDeCombateModoReposo.prepararParaViajar()
+		assert.equals(" Saliendo en mision ", naveDeCombateModoReposo.ultimoMensaje())
+	}
+}
 describe "Nave de combate" {
 
 	const naveEnReposo = new NaveDeCombate()
