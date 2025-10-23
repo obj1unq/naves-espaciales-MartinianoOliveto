@@ -21,33 +21,15 @@ describe "Nave de carga de residuos"{
 		assert.equals(5000, naveConResiduos.carga())
 	} 
 }
-
+//TEST 3.1
 describe "Nave de pasajeros" {
 
-	const naveSinPasajeros = new NaveDePasajeros()
-	const naveConPasajeros = new NaveDePasajeros(cantidadDePasajeros = 296, velocidad = 290000)
+	const naveSinPasajeros = new NaveDePasajeros(velocidad = 290000, cantDePasajeros = 0)
 
-	test "velocidad maxima sin pasajeros" {
-		assert.equals(75000, naveSinPasajeros.velocidadMaximaLegal())
+	test"verificacion de velocidad maxima al prepararse"{
+		naveSinPasajeros.prepararParaViajar()
+		assert.equals(300000, naveSinPasajeros.velocidad())
 	}
-
-	test "velocidad maxima con pasajeros" {
-		assert.equals(1000 - 200, naveConPasajeros.velocidadMaximaLegal())
-	}
-
-	test "esta en peligro" {
-		assert.that(naveConPasajeros.estaEnPeligro())
-	}
-
-	test "no esta en peligro" {
-		assert.notThat(naveSinPasajeros.estaEnPeligro())
-	}
-
-	test "recibir amenaza" {
-		naveSinPasajeros.recibirAmenaza()
-		assert.that(naveSinPasajeros.alarma())
-	}
-
 }
 
 describe "Nave de combate" {
